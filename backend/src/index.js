@@ -50,3 +50,6 @@ app.listen(PORT, () => {
     console.log(`Server is runing on ${PORT}`)
     connectDB();
 })
+
+
+// todo : socket.io
