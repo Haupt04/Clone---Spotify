@@ -39,6 +39,10 @@ app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statsRoutes);
 
 
+// error handing
+app.use((err,req,res,next) => {
+    res.status(500).json({message:process.env.NODE_ENV === "production" ? "Internal server error" : err.message})
+})
 
 
 
