@@ -16,7 +16,6 @@ const uploadToClouduinary = async (file) => {
     }
 }
 
-
 export const createSong = async (req,res, next) => {
     try {
         if (!req.files || !req.files.audioFile){
@@ -74,6 +73,40 @@ export const deleteSong = async (req,res,next) => {
         res.status(200).json({message: "Song deleted successfully"})
     } catch (error) {
         console.log("Error in deleting song", error)
+        next(error)
+    }
+}
+
+export const createAblum = async (req,res,next) => {
+    try {
+        const {title, artist, releaseYear } = req.body
+        const {imageFile} = req.files
+
+        const imageUrl = await uploadToClouduinary(imageFile)
+
+        const album = new Album({
+            title,
+            artist,
+            imageUrl,
+            releaseYear
+        })
+
+        res.status(201).json(album)
+
+    } catch (error){
+        console.log("Error creating a ablum", error)
+        next(error)
+    }
+}
+
+export const deleteAblum = async (req,res,next) => {
+    try {
+        const { id } = req.params;
+        await Song.deleteMany({albumId: id })
+        await Album.findByIdAndDelete(id);
+        res.status(200).json({message: 'Ablum deleted successfully'})
+    } catch (error){
+        console.log("Error in deleting album", error)
         next(error)
     }
 }
