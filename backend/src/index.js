@@ -4,6 +4,7 @@ import fileUpload from 'express-fileupload'
 import { clerkMiddleware } from '@clerk/express'
 import {connectDB} from './lib/dib.js'
 import path from 'path';
+import cors from 'cors';
 
 
 import userRoutes from './routes/user.route.js';
@@ -20,6 +21,13 @@ const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors(
+    {
+        origin:"http://localhost:3000",
+        credentials:true
+    }
+))
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json()) //parse req.body
 app.use(clerkMiddleware()) // this add autho to req.obj => req.user.auth
 app.use(fileUpload({
@@ -27,7 +35,7 @@ app.use(fileUpload({
     tempFileDir: path.join(__dirname,"tmp"),
     createParentPath: true,
     limits: {
-        fileSize: 10 * 1024 * 1024 //10mb max file size
+        fileSize: 10 * 1024 * 1024, //10mb max file size
     }
 }))
 
