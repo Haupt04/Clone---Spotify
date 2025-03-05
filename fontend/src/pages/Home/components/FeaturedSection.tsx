@@ -19,6 +19,8 @@ const FeaturedSection = () => {
                         <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
                     </div>
                 </div>
+
+                // Todo play button
             ))}
 
         </div>
