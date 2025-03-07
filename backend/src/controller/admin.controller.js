@@ -56,28 +56,29 @@ export const createSong = async (req,res, next) => {
     }
 }
 
-export const deleteSong = async (req,res,next) => {
-    try {
-        const {id} = req.params;
+export const deleteSong = async (req, res, next) => {
+	try {
+		const { id } = req.params;
 
-        const song = await Song.findById(id)
+		const song = await Song.findById(id);
 
-        // if song belongs to an ablum, update the album's song array
-        if (song.albumId){
-            await Album.findByIdAndUpdate(song.albumId, {
-                $pull : {song: song_id},
-            })
-        }
+		// if song belongs to an album, update the album's songs array
+		if (song.albumId) {
+			await Album.findByIdAndUpdate(song.albumId, {
+				$pull: { songs: song._id },
+			});
+		}
 
-        await Song.findByIdAndDelete(id);
-        res.status(200).json({message: "Song deleted successfully"})
-    } catch (error) {
-        console.log("Error in deleting song", error)
-        next(error)
-    }
-}
+		await Song.findByIdAndDelete(id);
 
-export const createAblum = async (req,res,next) => {
+		res.status(200).json({ message: "Song deleted successfully" });
+	} catch (error) {
+		console.log("Error in deleteSong", error);
+		next(error);
+	}
+};
+
+export const createAlbum = async (req,res,next) => {
     try {
         const {title, artist, releaseYear } = req.body
         const {imageFile} = req.files
@@ -99,7 +100,7 @@ export const createAblum = async (req,res,next) => {
     }
 }
 
-export const deleteAblum = async (req,res,next) => {
+export const deleteAlbum = async (req,res,next) => {
     try {
         const { id } = req.params;
         await Song.deleteMany({albumId: id })
