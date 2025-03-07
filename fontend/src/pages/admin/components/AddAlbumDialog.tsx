@@ -1,26 +1,33 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { axiosInstance } from "@/lib/axios";
-
 import { Plus, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const AddAlbumDialog = () => {
-    const [albumDialogOpen, setAlbumDialogOpen] = useState(false)
-    const [isLoading, setIsLoading] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
+	const [albumDialogOpen, setAlbumDialogOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const [newAlbum, setNewAlbum] = useState({
-        title:"",
-        artist: "",
-        releaseYear: new Date().getFullYear(),
-    });
+	const [newAlbum, setNewAlbum] = useState({
+		title: "",
+		artist: "",
+		releaseYear: new Date().getFullYear(),
+	});
 
-    const [imageFile, setImageFile] = useState<File | null>(null)
+	const [imageFile, setImageFile] = useState<File | null>(null);
 
-    const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
 			setImageFile(file);
@@ -62,8 +69,8 @@ const AddAlbumDialog = () => {
 		}
 	};
 
-    return (
-        <Dialog open={albumDialogOpen} onOpenChange={setAlbumDialogOpen}>
+	return (
+		<Dialog open={albumDialogOpen} onOpenChange={setAlbumDialogOpen}>
 			<DialogTrigger asChild>
 				<Button className='bg-violet-500 hover:bg-violet-600 text-white'>
 					<Plus className='mr-2 h-4 w-4' />
@@ -144,7 +151,6 @@ const AddAlbumDialog = () => {
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
-    )
-}
-
+	);
+};
 export default AddAlbumDialog;

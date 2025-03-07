@@ -1,37 +1,39 @@
+
 import { usePlayerStore } from "@/store/usePlayerStore";
 import { useEffect, useRef } from "react";
 
 const AudioPlayer = () => {
-    const audioRef = useRef<HTMLAudioElement>(null)
-    const prevSongRef = useRef<string | null>(null)
+	const audioRef = useRef<HTMLAudioElement>(null);
+	const prevSongRef = useRef<string | null>(null);
 
-    const {currentSong, isPlaying, playNext} = usePlayerStore();
+	const { currentSong, isPlaying, playNext } = usePlayerStore();
 
-    // handle play/pause logic 
-    useEffect(() => {
-        if (isPlaying) audioRef.current?.play();
-        else audioRef.current?.pause();
-    }, [isPlaying])
+	// handle play/pause logic
+	useEffect(() => {
+		if (isPlaying) audioRef.current?.play();
+		else audioRef.current?.pause();
+	}, [isPlaying]);
 
-    //handle song ending
-    useEffect(() => {
-        const audio = audioRef.current;
-        const handleEnd = () => {
-            playNext();
-        }
+	// handle song ends
+	useEffect(() => {
+		const audio = audioRef.current;
 
-        audio?.addEventListener("ended", handleEnd)
+		const handleEnded = () => {
+			playNext();
+		};
 
-        return () => audio?.removeEventListener('ended', handleEnd)
-    }, [playNext])
+		audio?.addEventListener("ended", handleEnded);
 
-    // handle song changes
-    useEffect(() => {
-        if (!audioRef.current || !currentSong) return;
+		return () => audio?.removeEventListener("ended", handleEnded);
+	}, [playNext]);
 
-        const audio = audioRef.current;
-        // check if this a new song playing
-       // check if this is actually a new song
+	// handle song changes
+	useEffect(() => {
+		if (!audioRef.current || !currentSong) return;
+
+		const audio = audioRef.current;
+
+		// check if this is actually a new song
 		const isSongChange = prevSongRef.current !== currentSong?.audioUrl;
 		if (isSongChange) {
 			audio.src = currentSong?.audioUrl;
@@ -41,10 +43,9 @@ const AudioPlayer = () => {
 			prevSongRef.current = currentSong?.audioUrl;
 
 			if (isPlaying) audio.play();
-        }
-    },[currentSong,isPlaying])
+		}
+	}, [currentSong, isPlaying]);
 
-    return <audio ref={audioRef} />;
-}
-
+	return <audio ref={audioRef} />;
+};
 export default AudioPlayer;
