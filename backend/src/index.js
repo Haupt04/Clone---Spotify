@@ -6,7 +6,7 @@ import path from "path";
 import cors from "cors";
 import fs from "fs";
 import { createServer } from "http";
-import cron from "node-cron";
+import cron from 'node-cron';
 
 import { initializeSocket } from "./lib/socket.js";
 
@@ -22,7 +22,7 @@ dotenv.config();
 
 const __dirname = path.resolve();
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 const httpServer = createServer(app);
 initializeSocket(httpServer);
@@ -68,7 +68,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
-app.use("/api/stats", statRoutes);
+app.use("/api/stats",statRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
