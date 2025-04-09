@@ -1,3 +1,5 @@
+## Spotify Clone
+
 ![Spotify2](https://github.com/user-attachments/assets/594eb562-aeb0-494a-bdfb-ff23225b311f)
 
 ## Dashboard
