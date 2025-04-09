@@ -2,7 +2,8 @@
 
 ## Dashboard
 
-![Uploading Spotify1.png…]()
+![Spotify1](https://github.com/user-attachments/assets/c38a9068-f524-4cb4-867e-4ca9f522f83b)
+
 
 
 This project is a clone of the popular music streaming service, Spotify. It allows users to listen to their favorite music, create playlists, and explore new music. It is built using Express and React, and provides a basic version of Spotify's key features.
