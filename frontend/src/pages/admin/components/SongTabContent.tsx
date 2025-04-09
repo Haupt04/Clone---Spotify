@@ -2,8 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Music } from "lucide-react";
 import SongsTable from "./SongsTable";
 import AddSongDialog from "./AddSongDialog";
+import { axiosInstance } from "@/lib/axios";
 
 const SongsTabContent = () => {
+	console.log(axiosInstance.defaults.headers.common["Authorization"]);
 	return (
 		<Card>
 			<CardHeader>

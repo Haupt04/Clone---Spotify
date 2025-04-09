@@ -76,8 +76,16 @@ export const deleteSong = async (req, res, next) => {
 
 export const createAlbum = async (req, res, next) => {
 	try {
+		if (!req.files || !req.files.imageFile) {
+			return res.status(400).json({ message: "Please upload an album cover image" });
+		}
+
 		const { title, artist, releaseYear } = req.body;
-		const { imageFile } = req.files;
+		const imageFile = req.files.imageFile;
+
+		if (!title || !artist || !releaseYear) {
+			return res.status(400).json({ message: "Missing required fields" });
+		}
 
 		const imageUrl = await uploadToCloudinary(imageFile);
 
@@ -88,6 +96,9 @@ export const createAlbum = async (req, res, next) => {
 			releaseYear,
 		});
 
+		console.log("Album request body:", req.body);
+		console.log("Uploaded file:", req.files?.imageFile);
+
 		await album.save();
 
 		res.status(201).json(album);
@@ -96,6 +107,7 @@ export const createAlbum = async (req, res, next) => {
 		next(error);
 	}
 };
+
 
 export const deleteAlbum = async (req, res, next) => {
 	try {

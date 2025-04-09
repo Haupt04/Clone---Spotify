@@ -24,9 +24,10 @@ interface NewSong {
 }
 
 const AddSongDialog = () => {
-	const { albums } = useMusicStore();
+	const { albums, fetchSongs } = useMusicStore();
 	const [songDialogOpen, setSongDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	
 
 	const [newSong, setNewSong] = useState<NewSong>({
 		title: "",
@@ -68,6 +69,8 @@ const AddSongDialog = () => {
 					"Content-Type": "multipart/form-data",
 				},
 			});
+			
+			await fetchSongs()
 
 			setNewSong({
 				title: "",

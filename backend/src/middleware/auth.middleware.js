@@ -1,10 +1,13 @@
 import { clerkClient } from "@clerk/express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const protectRoute = async (req, res, next) => {
-	console.log("🔍 Checking authentication...");
-    console.log("🔍 Auth Data:", req.auth);
+	// console.log("🔍 Request headers:", req.headers);
+    // console.log("🔍 Auth Data:", req.auth);
 	if (!req.auth.userId) {
-		console.log("❌ Unauthorized: No valid user ID");
+		console.log(" Unauthorized: No valid user ID");
 		return res.status(401).json({ message: "Unauthorized - you must be logged in" });
 	}
 	next();

@@ -20,6 +20,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const initAuth = async () => {
 			try {
 				const token = await getToken();
+				console.log("Token on navigation:", token)
 				updateApiToken(token);
 				if (token) {
 					await checkAdminStatus();
