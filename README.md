@@ -80,6 +80,6 @@ VITE_CLERK_PUBLISHABLE_KEY=...
 ## Deployment
 This application is fully deployable. Ensure that your environment variables are correctly configured for production.
 
-It is live on at https://netflix-clone-riju.onrender.com
+It is live on at https://clone-spotify-6bux.onrender.com
 
 Note: The website will spin down with inactivity, which can delay requests by 50 seconds or more.
