@@ -83,3 +83,7 @@ This application is fully deployable. Ensure that your environment variables are
 It is live on at https://clone-spotify-6bux.onrender.com
 
 Note: The website will spin down with inactivity, which can delay requests by 50 seconds or more.
+
+## Acknowledgements
+This project was created with the help of the following tutorial:
+ Advanced Spotify Clone: Build & Deploy a MERN Stack Spotify Application with React.js ([YouTube Link](https://www.youtube.com/watch?v=4sbklcQ0EXc)) by Codesistency.
